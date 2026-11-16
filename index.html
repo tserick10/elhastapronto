@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Cachetes 🌷</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --cream: #fff9ed;
+  --gold: #d5ae64;
+  --pink: #e9c5b4;
+  --brown: #79634e;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--brown);
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+}
+
+button, .music-button { font-family: inherit; }
+
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: linear-gradient(145deg,#fff8e9,#f7e8d3,#f6e8df);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 25px;
+  transition: opacity 1.2s, visibility 1.2s;
+}
+
+#intro.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.intro-content { max-width: 480px; }
+
+.intro-content .flower {
+  font-size: 75px;
+  animation: float 3s infinite ease-in-out;
+}
+
+.script {
+  font-family: 'Great Vibes', cursive;
+  color: #bd9656;
+  font-size: clamp(42px, 9vw, 68px);
+  font-weight: normal;
+  margin: 15px 0;
+}
+
+.intro-content p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  line-height: 1.7;
+}
+
+.open-button {
+  margin-top: 22px;
+  padding: 14px 30px;
+  border: 1px solid #c6a66e;
+  border-radius: 40px;
+  color: #80643d;
+  background: rgba(255,255,255,.6);
+  font-size: 13px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.open-button:hover {
+  background: #e9d7b8;
+  transform: translateY(-3px);
+}
+
+section {
+  padding: 85px 20px;
+  text-align: center;
+}
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg,rgba(255,249,237,.3),rgba(255,249,237,.8)),
+    linear-gradient(140deg,#f6e6cb,#f9e8dc,#fff5df);
+}
+
+.hero h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(65px,12vw,110px);
+  color: #bb9555;
+  font-weight: normal;
+  margin: 20px 0;
+  position: relative;
+  z-index: 2;
+}
+
+.hero p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  max-width: 600px;
+  line-height: 1.7;
+  position: relative;
+  z-index: 2;
+}
+
+.eyebrow {
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-size: 10px;
+  color: #a88a61;
+}
+
+.down {
+  margin-top: 45px;
+  animation: float 2s infinite ease-in-out;
+  font-size: 27px;
+}
+
+h2 {
+  font-family: 'Great Vibes', cursive;
+  font-weight: normal;
+  color: #bc965a;
+  font-size: clamp(42px,8vw,65px);
+  margin: 0 0 20px;
+}
+
+.subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px;
+  line-height: 1.8;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+#garden {
+  background: #f7efdf;
+  padding-bottom: 55px;
+  overflow: hidden;
+}
+
+.garden {
+  min-height: 290px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(8px,3vw,35px);
+  padding: 35px 5px 0;
+}
+
+.tulip {
+  position: relative;
+  width: 45px;
+  height: 220px;
+  transform-origin: bottom center;
+  animation: sway 4s infinite ease-in-out;
+}
+
+.tulip:nth-child(even) { animation-delay: -2s; }
+
+.stem {
+  position: absolute;
+  width: 5px;
+  height: 150px;
+  background: linear-gradient(90deg,#6b8b54,#a4b979);
+  bottom: 0;
+  left: 21px;
+  border-radius: 8px;
+}
+
+.leaf {
+  position: absolute;
+  width: 34px;
+  height: 13px;
+  background: #8fa56e;
+  bottom: 62px;
+  left: 21px;
+  border-radius: 100% 0 100% 0;
+  transform: rotate(-30deg);
+}
+
+.leaf.second {
+  left: -7px;
+  bottom: 95px;
+  transform: scaleX(-1) rotate(-30deg);
+}
+
+.bloom {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  width: 45px;
+  height: 47px;
+}
+
+.petal {
+  position: absolute;
+  width: 20px;
+  height: 40px;
+  background: var(--petal);
+  border-radius: 70% 70% 35% 35%;
+  top: 3px;
+  left: 12px;
+  transform-origin: bottom center;
+  box-shadow: inset 0 -5px 8px rgba(150,110,60,.09);
+}
+
+.petal:nth-child(1) { transform: rotate(-35deg); }
+.petal:nth-child(2) { transform: rotate(0deg) translateY(-5px); }
+.petal:nth-child(3) { transform: rotate(35deg); }
+.petal:nth-child(4) { transform: rotate(-17deg) translateY(5px); }
+.petal:nth-child(5) { transform: rotate(17deg) translateY(5px); }
+
+@keyframes sway {
+  0%,100% { transform: rotate(-3deg); }
+  50% { transform: rotate(4deg); }
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.gallery-section { background: #fffaf1; }
+
+.gallery {
+  max-width: 1050px;
+  margin: 45px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 14px;
+}
+
+.photo {
+  background: white;
+  padding: 7px;
+  border-radius: 4px;
+  box-shadow: 0 5px 22px rgba(100,75,45,.09);
+  cursor: pointer;
+  transition: .3s;
+}
+
+.photo:hover {
+  transform: translateY(-5px) rotate(1deg);
+}
+
+.photo img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+#lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: rgba(25,20,15,.94);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+#lightbox img {
+  max-width: 95%;
+  max-height: 85vh;
+  object-fit: contain;
+}
+
+#lightbox span {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  color: white;
+  font-size: 35px;
+  cursor: pointer;
+}
+
+.letter-section {
+  background: linear-gradient(145deg,#f6e8d8,#fff9ed);
+}
+
+.letter {
+  max-width: 750px;
+  margin: 40px auto 0;
+  padding: clamp(25px,6vw,65px);
+  background: rgba(255,255,255,.72);
+  border: 1px solid #ead8b9;
+  box-shadow: 0 15px 50px rgba(120,90,50,.08);
+  text-align: left;
+  position: relative;
+}
+
+.letter:before {
+  content: '♡';
+  position: absolute;
+  top: 15px;
+  right: 23px;
+  color: #d4b17a;
+  font-size: 28px;
+}
+
+.letter p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px;
+  line-height: 1.85;
+  margin: 0 0 20px;
+}
+
+.letter .signature {
+  font-family: 'Great Vibes', cursive;
+  font-size: 42px;
+  text-align: right;
+  color: #bd9656;
+  margin-top: 35px;
+}
+
+.music-section {
+  background: #f5eddf;
+}
+
+.music-card {
+  max-width: 440px;
+  margin: 30px auto;
+  padding: 28px;
+  background: rgba(255,255,255,.7);
+  border-radius: 20px;
+  border: 1px solid #e7d5b5;
+}
+
+.music-button {
+  display: inline-block;
+  text-decoration: none;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 26px;
+  background: #d9bd8c;
+  color: #fff;
+  cursor: pointer;
+  margin: 10px;
+  transition: .3s;
+  font-size: 14px;
+}
+
+.music-button:hover { background: #bc965a; }
+
+.closing {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg,#f5dfc7,#f8ebd9,#fff7eb);
+  position: relative;
+  overflow: hidden;
+}
+
+.closing h2 {
+  max-width: 750px;
+  font-size: clamp(46px,9vw,76px);
+  padding: 0 15px;
+}
+
+.closing p {
+  font-family: 'Cormorant Garamond',serif;
+  font-size: 24px;
+  line-height: 1.8;
+  max-width: 600px;
+  padding: 0 20px;
+}
+
+.final-line {
+  color: #bb965a;
+  font-family: 'Great Vibes',cursive;
+  font-size: 46px;
+  margin-top: 30px;
+}
+
+.petal-fall {
+  position: fixed;
+  top: -30px;
+  z-index: 10;
+  pointer-events: none;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translate(var(--drift),110vh) rotate(600deg);
+    opacity: .2;
+  }
+}
+
+footer {
+  padding: 25px;
+  text-align: center;
+  background: #fff8eb;
+  color: #a28b6c;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+@media(max-width:650px) {
+  .gallery { grid-template-columns: repeat(2,1fr); gap: 9px; }
+  .photo img { height: 220px; }
+  .garden { gap: 2px; transform: scale(.85); }
+  .letter p { font-size: 19px; }
+  section { padding: 65px 16px; }
+}
+
+@media(max-width:380px) {
+  .gallery { grid-template-columns: 1fr 1fr; }
+  .photo img { height: 175px; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="intro">
+  <div class="intro-content">
+    <div class="flower">🌷</div>
+    <div class="script">Para ti, Cachetes</div>
+    <p>Hay algo bonito que quiero dejarte.<br>Un pequeño regalo hecho con mucho cariño.</p>
+    <button class="open-button" onclick="openGift()">
+      ABRIR TU ÚLTIMO REGALO ♡
+    </button>
+  </div>
+</div>
+
+<section class="hero">
+  <span class="eyebrow">Un pequeño recuerdo para ti</span>
+  <h1>Para Valeria</h1>
+  <p>
+    Algunas personas llegan a nuestra vida y dejan
+    flores que ni siquiera el tiempo puede marchitar.
+  </p>
+  <div class="down">♡</div>
+</section>
+
+<section id="garden">
+  <h2>Un jardín para ti</h2>
+  <p class="subtitle">
+    Estas flores nunca se van a echar a perder.
+    Porque hay recuerdos que merecen florecer para siempre.
+  </p>
+
+  <div class="garden" id="tulips"></div>
+
+  <p class="subtitle" style="font-style:italic;color:#a68a5c">
+    Este será mi último regalo para ti. 🌷
+  </p>
+</section>
+
+<section class="music-section">
+  <h2>Una canción para acompañarte</h2>
+  <p class="subtitle">Porque algunas canciones guardan recuerdos que las palabras no alcanzan a explicar.</p>
+
+  <div class="music-card">
+    <div style="font-size:45px">🎸</div>
+    <h3 style="font-family:'Cormorant Garamond';font-size:25px; margin-bottom:5px;">
+      Iris
+    </h3>
+    <p style="margin-top:0;">Goo Goo Dolls</p>
+
+    <!-- Aquí se carga tu canción local -->
+    <audio id="music" loop>
+      <source src="iris.mp3" type="audio/mpeg">
+    </audio>
+
+    <button class="music-button" onclick="toggleMusic()" id="musicBtn">
+      ❚❚ Pausar música
+    </button>
+  </div>
+</section>
+
+<section class="gallery-section">
+  <h2>Nuestros recuerdos</h2>
+  <p class="subtitle">
+    No quiero olvidar lo bonito que fue coincidir contigo.
+    Aquí se quedan algunos de esos momentos.
+  </p>
+
+  <div class="gallery" id="gallery"></div>
+</section>
+
+<div id="lightbox" onclick="closePhoto()">
+  <span>×</span>
+  <img id="bigPhoto" src="" alt="Recuerdo">
+</div>
+
+<section class="letter-section">
+  <h2>Unas últimas palabras...</h2>
+  <p class="subtitle">Léelo cuando quieras. No hay prisa. ♡</p>
+
+  <article class="letter">
+
+    <p><strong>Para ti, Cachetes. ♡</strong></p>
+
+    <p>No sé muy bien por dónde empezar, pero sí sé que hay muchas cosas que quiero que sepas.</p>
+
+    <p>Primero que todo, quiero que sepas que te quiero muchísimo y que estoy infinitamente agradecido por todo lo bonito que hiciste por mí. Gracias por hacerme recordar lo que se siente querer y amar de verdad, por cada momento, cada risa, cada abrazo y cada recuerdo que me voy a llevar conmigo.</p>
+
+    <p>Quiero que nunca olvides la niña tan buena que eres. Tienes unos ojitos hermosos, color miel, de esos que podría mirar durante horas. Eres una mujer increíblemente hermosa, pero eso es apenas lo mínimo de todo lo bonito que tienes. Tienes una manera de querer muy linda, un corazón enorme y una forma de preocuparte por las personas que quieres que dice muchísimo de ti.</p>
+
+    <p>Admiro lo chambeadora que eres, lo mucho que te esfuerzas cada día, cómo sigues adelante y cómo te preocupas por tus seres queridos. Ojalá algún día puedas quitarte de encima todo ese peso que llevas cargando, que puedas descansar, sentirte tranquila y permitirte ser feliz sin sentir que tienes que poder con todo.</p>
+
+    <p>Quiero que busques tu camino, que vuelvas a ser tú, que te permitas vivir, reír y hacer todas esas cosas que te hacen feliz. No tengas miedo de empezar de nuevo. Nunca dudes de lo mucho que vales. Estoy seguro de que la vida todavía tiene cosas preciosas preparadas para ti y que algún día encontrarás a esa persona que sepa cuidar ese corazón tan bonito que tienes.</p>
+
+    <p>También quiero que sepas que te perdono. No te guardo ningún rencor, ni quiero quedarme con sentimientos malos. De ti prefiero guardar las cosas bonitas, los momentos felices y todo lo que me enseñaste.</p>
+
+    <p>Siempre voy a querer que estés bien. Y si algún día necesitas algo, quiero que sepas que puedes contar conmigo. No importa cuánto tiempo pase, siempre voy a desearte lo mejor.</p>
+
+    <p>Voy a trabajar en mí, voy a mejorar como persona y voy a convertirme en alguien de quien también pueda sentirme orgulloso. Y si la vida algún día nos vuelve a cruzar, en esta vida o en otra, ojalá podamos encontrarnos desde una versión más bonita de nosotros mismos.</p>
+
+    <p>Daría muchísimo por ti, y eso no cambia lo agradecido que estoy por haberte tenido en mi vida.</p>
+
+    <p>Sé que cada vez que vea un atardecer voy a acordarme de tus ojitos color miel, de tu sonrisa y de todos esos momentos que hicieron que valiera la pena coincidir contigo.</p>
+
+    <p>Ojalá nunca pierdas esa forma tan bonita de querer. Ojalá te liberes de todo lo que te pesa, que vuelvas a encontrarte y que nunca dejes de reconocer lo especial que eres.</p>
+
+    <p>Y si algún día dudas de si alguien te quiso de verdad, recuerda que aquí hubo alguien que te quiso muchísimo y que siempre va a guardar un pedacito de ti con cariño.</p>
+
+    <p><strong>Gracias por todo, mi Cachetes.</strong></p>
+
+    <p>Te voy a querer siempre. ♡</p>
+
+    <div class="signature">Con mucho cariño...</div>
+  </article>
+</section>
+
+<section class="closing">
+  <span class="eyebrow">Para siempre en mis recuerdos</span>
+  <h2>Estas flores nunca se van a echar a perder.</h2>
+  <p>
+    No para que recuerdes lo que pudo ser,
+    sino para que nunca olvides lo bonito que fue.
+  </p>
+  <div style="font-size:55px;margin:20px">🌷</div>
+  <div class="final-line">Gracias por coincidir conmigo.</div>
+  <p style="font-size:15px;margin-top:35px">
+    Este será mi último regalo para ti. ♡
+  </p>
+</section>
+
+<footer>
+  HECHO CON MUCHO CARIÑO · PARA VALERIA ♡
+</footer>
+
+<script>
+// Carga automática de las 19 fotos
+const photos = Array.from({length:19}, (_,i) =>
+  `fotos/foto_${String(i+1).padStart(2,'0')}.jpeg`
+);
+
+const gallery = document.getElementById('gallery');
+
+photos.forEach((src,i) => {
+  const card = document.createElement('div');
+  card.className = 'photo';
+
+  const img = document.createElement('img');
+  img.src = src;
+  img.alt = `Recuerdo ${i+1}`;
+  img.loading = 'lazy';
+
+  img.onerror = () => {
+    card.style.display = 'none';
+    console.warn('No se encontró:',src);
+  };
+
+  card.appendChild(img);
+  card.onclick = () => showPhoto(src);
+  gallery.appendChild(card);
+});
+
+// Tulipanes animados
+const colors = [
+  '#f3d77c', '#fff0c5', '#e9c7a6', '#f7e5a4', '#f1d4d0', '#fff4dc', '#e8d8a9'
+];
+
+const garden = document.getElementById('tulips');
+
+for(let i=0;i<13;i++){
+  const tulip = document.createElement('div');
+  tulip.className = 'tulip';
+  const color = colors[i%colors.length];
+  tulip.style.setProperty('--petal',color);
+  tulip.style.height = (170 + Math.random()*65)+'px';
+
+  tulip.innerHTML = `
+    <div class="stem"></div>
+    <div class="leaf"></div>
+    <div class="leaf second"></div>
+    <div class="bloom">
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+    </div>
+  `;
+  garden.appendChild(tulip);
+}
+
+// FUNCIÓN MODIFICADA: Abre el regalo y reproduce la música
+function openGift(){
+  document.getElementById('intro').classList.add('hidden');
+  window.scrollTo({top:0,behavior:'smooth'});
+  startPetals();
+  
+  // Reproduce la música al hacer clic
+  const music = document.getElementById('music');
+  music.play().then(() => {
+    document.getElementById('musicBtn').textContent = '❚❚ Pausar música';
+  }).catch(error => {
+    console.log("El navegador bloqueó el autoplay inicial, pero el botón manual funcionará.");
+  });
+}
+
+function showPhoto(src){
+  document.getElementById('bigPhoto').src=src;
+  document.getElementById('lightbox').style.display='flex';
+}
+
+function closePhoto(){
+  document.getElementById('lightbox').style.display='none';
+}
+
+// Control manual de la música
+const music = document.getElementById('music');
+const musicBtn = document.getElementById('musicBtn');
+
+function toggleMusic(){
+  if(music.paused){
+    music.play();
+    musicBtn.textContent = '❚❚ Pausar música';
+  } else {
+    music.pause();
+    musicBtn.textContent = '▶ Reproducir música';
+  }
+}
+
+// Pétalos cayendo
+let petalsStarted=false;
+
+function startPetals(){
+  if(petalsStarted)return;
+  petalsStarted=true;
+
+  setInterval(()=>{
+    const petal=document.createElement('div');
+    petal.className='petal-fall';
+    petal.textContent=Math.random()>.5?'🌼':'🌸';
+    petal.style.left=Math.random()*100+'vw';
+    petal.style.fontSize=(10+Math.random()*13)+'px';
+    petal.style.setProperty('--drift',(Math.random()*150-75)+'px');
+    petal.style.animationDuration=(7+Math.random()*8)+'s';
+
+    document.body.appendChild(petal);
+    setTimeout(()=>petal.remove(),16000);
+  },900);
+}
+</script>
+
+</body>
+</html>
